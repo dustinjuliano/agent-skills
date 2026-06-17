@@ -90,3 +90,4 @@ When asked to author git commit messages, strictly follow Linux-style convention
 - **No Punctuation in Lists**: If a comment block or markdown file contains any listed items, never put ending punctuation (such as a period) at the end of list item lines
 - **List Bullet Style**: Always use `-` for bulleted list items (both in source code comments and markdown files). Never use `*`
 - **Markdown Headings**: Always include exactly one blank line immediately after any markdown heading declaration (e.g., `# Heading`), regardless of the level of that heading
+- **Code and Non-English Enclosure**: In all comments, markdown files, and git commit messages, always enclose any term that is not natural English (such as variable/function/class names, file paths, directories, URLs, symbols, or data values) in backticks (e.g. `foo`, `src/rle.py`, `5`, or `http://localhost`)
