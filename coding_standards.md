@@ -75,7 +75,7 @@ Raises:
 
 - **Check Return Values**: All functions that return a value *must* have their return values checked or handled by the caller. Do not discard return values
 - **Structured Exit**: All functions must return control back to the caller (bubbling up to the program's main entry point) instead of terminating execution abruptly (e.g., do not call `sys.exit()` in nested utilities) unless using standard exception handling
-- **Pattern Matching Wildcards**: Do not use wildcard catch-all patterns (such as `_ => ...` or `_`) when matching enums. You must explicitly match and expand all enum variants to rely on the compiler for exhaustiveness checks. Wildcards in enum matching are considered an anti-pattern.
+- **Pattern Matching Wildcards**: Do not use wildcard catch-all patterns (such as `_ => ...` or a bare `_` arm) when matching enums. You must explicitly match and expand all enum variants in match blocks to rely on the compiler for exhaustiveness checks. Wildcards in enum match arms are considered an anti-pattern. Note that this rule applies exclusively to match arms on enums; it does not forbid using wildcard during destructuring
 
 ## 7. Standard Directory Layout
 
