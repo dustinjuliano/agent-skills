@@ -63,6 +63,8 @@ Raises:
 
 - **Variable Casing**: Use `snake_case` (underscore separators) for variable, function, and method names unless the target language's style community dictates otherwise (e.g., camelCase in JavaScript/Go)
 - **Import Localization**: Always import and use explicit symbols directly (e.g., `from math import sqrt` and use `sqrt(...)`) rather than long scope resolution identifiers (e.g., `import math` and `math.sqrt(...)`), unless doing so causes namespace clashes or ambiguity
+- **Import Prefix Restrictions**: Avoid inline path prefixes (e.g. `crate::`, `super::`, or crate-root names) within signatures or expressions, and instead bring modules or types into scope using import declarations
+- **One-Level Qualification**: For ambiguous names, qualify using exactly one level of namespace (e.g. `ast::NetValue` vs `unambiguous::Value`). For unambiguous names, import them directly and use them unqualified
 - **Import Scope**: Keep imports as localized as possible. If an import is only used within a specific function or class, import it inside that function's/class's scope rather than at the top level
 - **Import Spacing**: Include exactly one blank line immediately after the top-level imports block (before any function, class, or other code declarations)
 - **No Absolute System Paths**: Never hardcode or write absolute system
