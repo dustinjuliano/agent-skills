@@ -43,6 +43,7 @@ Raises:
 - **File/Module Headers**: Every file must start with a header docstring explaining the file's architectural role and contents
 - **Header Spacing**: Include exactly one blank line immediately after the file's header/module docstring (before any imports or code declarations)
 - **Definition Docstrings**: Every function, method, class, and custom type definition must use this format
+- **Test Docstring Exception**: For test functions that accept no parameters, return nothing, and raise no exceptions, the `Args:`, `Returns:`, and `Raises:` subsections of the docstring can be omitted
 
 ## 3. Expression Grouping & Boolean Evaluations
 
