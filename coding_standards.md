@@ -44,6 +44,10 @@ Raises:
 - **Header Spacing**: Include exactly one blank line immediately after the file's header/module docstring (before any imports or code declarations)
 - **Definition Docstrings**: Every function, method, class, and custom type definition must use this format
 - **Test Docstring Exception**: For test functions that accept no parameters, return nothing, and raise no exceptions, the `Args:`, `Returns:`, and `Raises:` subsections of the docstring can be omitted
+- **Language-Specific Syntax**: Use standard language-specific comment delimiters while keeping the same structured Google/PEP-257 sections
+- **Test Docstrings**: Every test function (including inline or functions and external integration test suites) must still include a docstring explaining the purpose, scenario, or expectation of the test
+- **Traits and Interfaces**: Every trait definition, interface definition, and all of their internal method definitions must be thoroughly documented using doc comments
+- **Trait Implementations**: Every trait implementation block must have a doc comment explaining the concrete implementation details, and its individual methods must also have doc comments if they exhibit any implementation-specific behavior or constraints
 
 ## 3. Expression Grouping & Boolean Evaluations
 
