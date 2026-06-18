@@ -10,7 +10,7 @@ This skill defines the mandatory coding standards for all code generation, refac
   - **Indentation**: Use **2 spaces** per indentation level. Do not use tab characters
   - **Trailing Whitespace**: Do not leave trailing whitespace at the end of any line. Always trim lines
   - **End-of-File Newline**: Every file must end with exactly one trailing newline character
-  - **Line Wrapping**: Keep all instructions, statements, and expressions wrapped to a limit of **72 characters**
+  - **Line Wrapping**: Keep all instructions, statements, and expressions wrapped to a limit of **72 characters** (Note: this line wrapping limit does not apply to markdown files or regular text files, except for comments and code blocks within them)
   - **Wrapping Style**: Prefer wrapping across lines using natural, clean syntactic structures (such as parentheses in Python) rather than line continuation indicators like backslashes
   - **Operator Wrapping**: When a comparison, assignment, or expression operator follows a closing delimiter (like a parenthesis `)`) of a multi-line expression, do not wrap the operator to a new line. Keep the operator on the same line as the closing delimiter (e.g. `) == True` or `) == If(...)`) if the resulting line fits within length limits
   - **Single-Line Nesting**: Do not wrap nested function calls or
@@ -94,7 +94,7 @@ When asked to author git commit messages, strictly follow Linux-style convention
 
 ## 9. Source Code Comments & Markdown Formatting
 
-- **Line Length**: Ensure all comments (inline, block, or header) are wrapped at a maximum of 72 characters where applicable
+- **Line Length**: Ensure all comments (inline, block, or header) are wrapped at a maximum of 72 characters where applicable (Note: this line wrapping limit does not apply to markdown files or regular text files, except for comments and code blocks within them)
 - **No Punctuation in Lists**: If a comment block or markdown file contains any listed items, never put ending punctuation (such as a period) at the end of list item lines
 - **List Bullet Style**: Always use `-` for bulleted list items (both in source code comments and markdown files). Never use `*`
 - **Markdown Headings**: Always include exactly one blank line immediately after any markdown heading declaration (e.g., `# Heading`), regardless of the level of that heading
