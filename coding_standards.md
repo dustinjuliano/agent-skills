@@ -13,6 +13,10 @@ This skill defines the mandatory coding standards for all code generation, refac
   - **Line Wrapping**: Keep all instructions, statements, and expressions wrapped to a limit of **72 characters**
   - **Wrapping Style**: Prefer wrapping across lines using natural, clean syntactic structures (such as parentheses in Python) rather than line continuation indicators like backslashes
   - **Operator Wrapping**: When a comparison, assignment, or expression operator follows a closing delimiter (like a parenthesis `)`) of a multi-line expression, do not wrap the operator to a new line. Keep the operator on the same line as the closing delimiter (e.g. `) == True` or `) == If(...)`) if the resulting line fits within length limits
+  - **Single-Line Nesting**: Do not wrap nested function calls or
+    expressions onto multiple lines if the entire collapsed expression
+    fits on a single line within the 72-character limit
+
 
 ## 2. Google / PEP-257 Docstring Specification
 
