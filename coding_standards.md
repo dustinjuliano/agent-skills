@@ -1,7 +1,7 @@
 # ALWAYS_ACTIVE: true
 # Coding Standards Skill
 
-This skill defines the mandatory coding standards for all code generation, refactoring, and file creation tasks. As an Antigravity agent, you must automatically apply these instructions to all code modifications across all workspaces.
+This skill defines the mandatory coding standards for all code generation, refactoring, and file creation tasks. All AI agents must automatically apply these instructions to all code modifications across all workspaces.
 
 ## 1. Code Formatting & Whitespace
 
