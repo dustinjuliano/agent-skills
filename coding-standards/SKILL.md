@@ -1,7 +1,17 @@
-# ALWAYS_ACTIVE: true
-# Coding Standards Skill
+---
+name: coding-standards
+description: Mandatory coding standards for all code generation, refactoring, and file creation tasks. Automatically apply these instructions to all code modifications across all workspaces.
+triggers:
+  - auto
+context:
+  - file_change
+  - code_generation
+  - refactor
+---
 
-This skill defines the mandatory coding standards for all code generation, refactoring, and file creation tasks. All AI agents must automatically apply these instructions to all code modifications across all workspaces.
+# Coding Standards
+
+Mandatory coding standards for all code generation, refactoring, and file creation tasks. Automatically apply these instructions to all code modifications across all workspaces.
 
 ## 1. Code Formatting & Whitespace
 

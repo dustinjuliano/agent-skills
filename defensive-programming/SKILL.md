@@ -1,6 +1,9 @@
-# Defensive Programming Skill
-
-This skill defines the rules for writing highly robust, self-validating, and up-armored code using defensive programming and dynamic assertions. Use these guidelines only when explicitly invoked.
+---
+name: defensive-programming
+description: Rules for writing robust, self-validating, and up-armored code using defensive programming and dynamic assertions.
+triggers:
+  - manual
+---
 
 ## 1. Up-Armoring & Defensive Error Handling
 
