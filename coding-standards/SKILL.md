@@ -26,6 +26,7 @@ Mandatory coding standards for all code generation, refactoring, and file creati
   - **Single-Line Nesting**: Do not wrap nested function calls or
     expressions onto multiple lines if the entire collapsed expression
     fits on a single line within the 72-character limit
+  - **Blank Line Limit**: Limit spacing between code blocks (such as definitions, declarations, or functions) to at most one blank line regardless of syntactic nesting level, and do not insert blank lines between individual statements within a block to avoid spurious whitespace
 
 
 ## 2. Google / PEP-257 Docstring Specification
