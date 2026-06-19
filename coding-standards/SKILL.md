@@ -58,6 +58,7 @@ Raises:
 - **Test Docstrings**: Every test function (including inline or functions and external integration test suites) must still include a docstring explaining the purpose, scenario, or expectation of the test
 - **Traits and Interfaces**: Every trait definition, interface definition, and all of their internal method definitions must be thoroughly documented using doc comments
 - **Trait Implementations**: Every trait implementation block must have a doc comment explaining the concrete implementation details, and its individual methods must also have doc comments if they exhibit any implementation-specific behavior or constraints
+- **No Redundant Field or Variant Comments**: Avoid writing doc comments for struct fields or enum variants if the comment simply repeats the name and type information without providing any additional semantic context, design invariants, or non-obvious constraints
 
 ## 3. Expression Grouping & Boolean Evaluations
 
