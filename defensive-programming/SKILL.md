@@ -30,3 +30,17 @@ triggers:
   - **Python**: Use the built-in `unittest` module
   - **C/C++**: Use simple assert-driven test scripts or the language-standard testing framework
   - **JavaScript/TypeScript**: Use built-in or standard runtime-native test runners
+
+## 5. Zero-Trust Boundaries & Deserialization
+
+- **Assume Malicious Intent**: Any subsystem crossing a trust boundary (e.g., codecs, network layers, or deserializers) must treat all inputs as potentially malicious.
+- **Negative Test Coverage**: There is a strict requirement for explicit "negative" test coverage. You must test with fuzzed or intentionally corrupted data to ensure the system gracefully returns standard errors rather than crashing or panicking
+
+## 6. Resource & Recursion Limits
+
+- **Enforce Bounds**: All unbounded or recursive data structures (e.g., nested objects, ASTs, dynamic arrays) must explicitly enforce maximum depths, lengths, or recursion limits
+- **Prevent Exhaustion**: This defends against resource exhaustion and Denial of Service (DoS) attacks, such as stack overflows or Out-Of-Memory (OOM) errors during parsing
+
+## 7. Defensive Refactoring & Invariants
+
+- **Verify Usage Before Minimizing**: When minimizing data structure properties or removing standard boilerplate (e.g., equality/hashing traits, serialization capabilities) to reduce code bloat, defensively verify that the type isn't implicitly relied upon by generic collections (e.g., maps, sets) elsewhere in the architecture
