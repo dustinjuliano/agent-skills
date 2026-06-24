@@ -61,15 +61,20 @@ Raises:
 - **Trait Implementations**: Every trait implementation block must have a doc comment explaining the concrete implementation details, and its individual methods must also have doc comments if they exhibit any implementation-specific behavior or constraints
 - **No Redundant Field or Variant Comments**: Avoid writing doc comments for struct fields or enum variants if the comment simply repeats the name and type information without providing any additional semantic context, design invariants, or non-obvious constraints
 
-## 3. Expression Grouping & Boolean Evaluations
+## 3. Expression Grouping & Explicit Programming
 
 - **Explicit Parentheses**: Group all sub-expressions explicitly in parentheses, but do not parenthesize the top-level expression of a statement (such as a variable assignment, if condition, or assert condition) unless required for multi-line wrapping. Only the nested sub-expressions with operators need explicit parenthesizing, which reduces visual clutter from unnecessary punctuation
   - *Correct*: `x = y + (z * w)`
   - *Incorrect*: `x = (y + (z * w))` or `if (x == y):` (when it fits on one line)
-- **Explicit Boolean Comparisons**: Do not rely on implicit truthiness. Always check boolean conditions explicitly
-  - *Correct*: `if x == True:` or `if y == False:`
-  - *Incorrect*: `if x:` or `if not y:`
-  - For non-boolean objects, explicitly evaluate their state (e.g., `if len(arr) > 0:` or `if obj is not None:` instead of implicit list/object truthiness checks)
+- **Explicit Programming**: In general, prefer explicit code over implicit behavior. Do not rely on implicit magical behavior, auto-casting, or hidden side effects unless it is a strongly enforced idiom of the specific programming language. Code should always clearly state its intentions
+- **Explicit Truthiness Evaluations**: Do not rely on implicit truthiness for any types (booleans, integers, lists, strings, objects). Always check truthiness conditions explicitly by comparing against a definitive state (e.g., length, nullability, or strict boolean values), unless working in specific languages that strictly reject this practice
+  - **Language Exceptions**:
+    - **Rust**: Clippy rejects comparisons with literal booleans (`== true`, `== false`) via the `clippy::bool_comparison` and `clippy::bool_assert_comparison` lints. When writing Rust, you must use implicit truthiness for booleans (e.g., `if x`, `if !y`, `assert!(x)`) instead of explicit checks (e.g., `if x == true` or `assert_eq!(x, true)`) across all contexts. Note that this exception applies only to booleans; for other types in Rust, you must still explicitly check state (e.g., `if !arr.is_empty()`)
+  - **Standard Rule (for all other languages)**:
+    - *Booleans*: Explicitly compare to True/False (e.g., `if x == True:` or `if y == False:` instead of `if x:` or `if not y:`)
+    - *Collections*: Explicitly check length or emptiness (e.g., `if len(arr) > 0:` instead of `if arr:`)
+    - *Objects/Nullables*: Explicitly check against null/None (e.g., `if obj is not None:` instead of `if obj:`)
+    - *Integers*: Explicitly check against zero (e.g., `if count > 0:` instead of `if count:`)
 
 ## 4. Variables, Naming & Scope
 
