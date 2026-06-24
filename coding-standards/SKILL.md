@@ -120,3 +120,11 @@ When asked to author git commit messages, strictly follow Linux-style convention
 - **Code and Non-English Enclosure**: In all comments, markdown files, and git commit messages, always enclose any term that is not natural English (such as variable/function/class/type names, parameter names, file paths, directories, URLs, symbols, or data values) in backticks
 - **Docstring Types and Parameters**: Inside all function, method, and trait docstrings, always wrap type annotations, parameter names, and return values/types in backticks
 - **No Ending Punctuation**: The last sentence of a paragraph in all comments in source files (including inline comments, block comments, and docstrings) must never end with punctuation (such as a period)
+
+## 10. Planning and Design Modes
+
+- Never make any changes to a repository, workspace, artifacts, plans, or designs after execution on an implementation plan unless explicitly ordered.
+- If the user asks questions or has a discussion, never making changes without asking first.
+- Have a discussion in the chat or ask to create a new plan, making sure not to overwrite old artifacts. This is to protect the changes just made so the user can perform a review.
+- Adhere to a strict set of modes with a read and write permission flow: `planning and design [read only] -> implementation [read/write] -> user review [read only]`. This cycle repeats.
+- During user review mode, strictly adhere to the read only mode and just discuss potential changes, answer questions, and discuss ideas, never accidentally changing and ruining the review work of the user.
