@@ -59,3 +59,12 @@ The impact analysis must concisely but informatively analyze the following dimen
 - **Performance**: High-level analysis of expected effects on runtime performance, memory usage, latency, and system load.
 - **Overall Effects**: A high-level summary of the broader consequences on the codebase, developer experience, and system maintainability.
 - **Maintainability**: Will these changes make the project more difficult to maintain or easier to maintain? Explain and justify.
+
+## 6. Architectural Shifts and Deprecations
+
+Whenever a plan proposes replacing, deprecating, or rendering obsolete an existing architectural component (e.g., removing a phase, ripping out a module, or shifting from dynamic to static analysis), it must be given its own dedicated, top-level section.
+
+This section must include:
+- **Detailed Subsections**: Break down the exact mechanisms of the old vs. the proposed new architecture.
+- **Deep Analysis**: A thorough investigation of why the old component is no longer needed, addressing any edge cases that the old component handled.
+- **Runtime vs. Static Implications**: If shifting phases (e.g., runtime to static), explicitly detail how the downstream consumers will adapt.
