@@ -68,3 +68,8 @@ This section must include:
 - **Detailed Subsections**: Break down the exact mechanisms of the old vs. the proposed new architecture.
 - **Deep Analysis**: A thorough investigation of why the old component is no longer needed, addressing any edge cases that the old component handled.
 - **Runtime vs. Static Implications**: If shifting phases (e.g., runtime to static), explicitly detail how the downstream consumers will adapt.
+
+## 7. No Speculative Code Generation (Token Conservation)
+
+To save tokens and maintain focus on high-level architecture, **do not generate speculative code blocks** in the implementation plan unless explicitly prompted to do so by the user. 
+- Use text-based, high-level algorithmic design descriptions instead of writing out data structures or implementation logic in code, unless specifically asked.
