@@ -133,3 +133,15 @@ When asked to author git commit messages, strictly follow Linux-style convention
 - Have a discussion in the chat or ask to create a new plan, making sure not to overwrite old artifacts. This is to protect the changes just made so the user can perform a review.
 - Adhere to a strict set of modes with a read and write permission flow: `planning and design [read only] -> implementation [read/write] -> user review [read only]`. This cycle repeats.
 - During user review mode, strictly adhere to the read only mode and just discuss potential changes, answer questions, and discuss ideas, never accidentally changing and ruining the review work of the user.
+
+## 11. Test Honesty
+
+- **No Shim Traits in Tests**: Never introduce test-only traits, wrapper types,
+  or extension methods that reimplement, alias, or compose over production API
+  methods to make old test assertions compile. If a public API is removed or
+  renamed, the tests must be rewritten to call the new API directly. Shim
+  traits mask API surface changes and create a false sense that the API is
+  being exercised
+- **No Test-Local Aliases**: Do not create local `type` aliases, `use`
+  renames, or `let` rebindings purely to hide a renamed or restructured API
+  from the test assertions. Tests must use the actual exported names
