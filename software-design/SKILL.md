@@ -73,3 +73,11 @@ This section must include:
 
 To save tokens and maintain focus on high-level architecture, **do not generate speculative code blocks** in the implementation plan unless explicitly prompted to do so by the user. 
 - Use text-based, high-level algorithmic design descriptions instead of writing out data structures or implementation logic in code, unless specifically asked.
+
+## 8. Rust Module Conventions
+
+When proposing or implementing Rust module structures, always adhere to the modern Rust module convention (introduced in Rust 2018):
+- Example: use `foo.rs` along with a corresponding `foo/` subdirectory for its submodules.
+- **Do not** use the older `mod.rs` convention (e.g., avoid creating `foo/mod.rs`).
+- Cross-reference this rule during architectural design to ensure the codebase remains consistent with modern Rust standards.
+- Do not modify existing module structure, even if it violates the convention, unless explicitly instructed.
