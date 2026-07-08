@@ -82,3 +82,7 @@ When proposing or implementing Rust module structures, always adhere to the mode
 - Cross-reference this rule during architectural design to ensure the codebase remains consistent with modern Rust standards.
 - Do not modify existing module structure, even if it violates the convention, unless explicitly instructed.
 - **Companion Struct Re-exports**: If a module has a companion struct of the same name (e.g., module `foo` and struct `Foo`), detect this pattern. When implementing this elsewhere in the project, make a note to re-export the struct so consumers don't have to type the repetitive full name to access the companion type.
+
+## 9. Code Comments in Design Files
+
+When writing code blocks within design or planning files, do not add comments to the code unless explicitly asked.
