@@ -86,3 +86,8 @@ When proposing or implementing Rust module structures, always adhere to the mode
 ## 9. Code Comments in Design Files
 
 When writing code blocks within design or planning files, do not add comments to the code unless explicitly asked.
+
+## 10. Walkthrough Artifacts
+
+Do not create walkthrough artifacts (`walkthrough.md`) after completing tasks unless the user explicitly requests one.
+
