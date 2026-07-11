@@ -83,6 +83,7 @@ Raises:
 - **Import Prefix Restrictions**: Avoid inline path prefixes (e.g. `crate::`, `super::`, or crate-root names) within signatures or expressions, and instead bring modules or types into scope using import declarations
 - **One-Level Qualification**: For ambiguous names, qualify using exactly one level of namespace (e.g. `ast::NetValue` vs `unambiguous::Value`). For unambiguous names, import them directly and use them unqualified
 - **Import Scope**: Keep imports as localized as possible. If an import is only used within a specific function or class, import it inside that function's/class's scope rather than at the top level
+  - **Python override**: All imports must be placed at the top of the file (per PEP 8). Do **not** use function- or class-level imports in Python, even for imports used in a single scope
 - **Import Spacing**: Include exactly one blank line immediately after the top-level imports block (before any function, class, or other code declarations)
 - **No Absolute System Paths**: Never hardcode or write absolute system
   paths (such as `/Users/...`) in source code files, configurations, or
