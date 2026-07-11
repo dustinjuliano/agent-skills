@@ -112,7 +112,8 @@ When implementing testing and verification in a project, organize the workspace 
 ## 8. Commit Messages
 
 When asked to author git commit messages, strictly follow Linux-style conventional commit messages using the 50/72 rule:
-- **Subject Line**: Limit to 50 characters, capitalized, written in the imperative mood, starting with a conventional prefix (e.g., `feat:`, `fix:`, `docs:`), and never ending in a period or other punctuation
+- **Subject Line**: Limit to 50 characters, written in the imperative mood, starting with a conventional prefix (e.g., `feat:`, `fix:`, `docs:`), and never ending in a period or other punctuation
+- **Slug Casing**: The slug — the short description that follows the type tag colon (e.g., the `add login endpoint` part of `feat: add login endpoint`) — must **always be entirely lowercase**. Never capitalize the first word or any word in the slug. This applies without exception, even at the start of the subject line
 - **Separation**: Include a single blank line between the subject and the body
 - **Body Casing**: Wrap all lines in the body at 72 characters max, explaining what changed and why (rather than how)
 - **No Punctuation in Lists**: If the body contains bulleted or numbered lists, ensure that no list item ends with any punctuation (such as a period)
