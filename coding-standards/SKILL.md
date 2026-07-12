@@ -147,3 +147,123 @@ When asked to author git commit messages, strictly follow Linux-style convention
 - **No Test-Local Aliases**: Do not create local `type` aliases, `use`
   renames, or `let` rebindings purely to hide a renamed or restructured API
   from the test assertions. Tests must use the actual exported names
+
+## 12. Post-Change Comment Integrity Review
+
+After any code change, perform a deliberate sweep of all affected and
+related source files to identify and correct comments rendered stale or
+factually incorrect by the change. This review is mandatory and cannot
+be skipped.
+
+### 12.1 Temporal Ordering Constraint
+
+This review is **strictly post-hoc**. The ground truth for whether a
+comment is stale is established only once the code is in its final
+state. The correct sequence is:
+
+1. Plan the change
+2. Execute all code edits
+3. **Only then** perform the comment integrity sweep
+
+Performing this check earlier yields false results because the code it
+checks against is still in flux
+
+### 12.2 Spatial Awareness Constraint
+
+A stale comment is **not necessarily near the code that invalidated
+it**. Do not limit the sweep to lines you touched. Actively search all
+of the following locations:
+
+- **File-level module/header docstrings**: Re-evaluate the header
+  docstring of every file you modified
+  - Check whether it still accurately describes the file's role,
+    exported API surface, or behavioral contract
+- **Calling sites and consumers**: If you changed a function or type's
+  signature or semantics, inspect every caller
+  - Callers may live in different files, modules, or packages
+  - Their inline comments and docstring parameter descriptions may
+    still describe the old behavior
+- **Docstrings of dependents**: Walk one level up the call graph and
+  inspect every direct consumer's documentation
+  - A function documented as delegating to something you changed may
+    now be a misdescription
+- **Cross-file reference comments**: Search for comments that name
+  entities you renamed, moved, or removed
+  - Examples: `// See FooHandler for details` or
+    `# mirrors parse_config()`
+  - These become broken pointers if the referenced entity changed
+- **Architecture and design comments**: High-level comments describing
+  invariants or data flow can be silently invalidated
+  - Example: `// only place X can occur` is wrong if your change
+    introduces a second place X can occur
+- **TODO, FIXME, HACK, and NOTE annotations**: Scan for these
+  referencing any entity or behavior you changed
+  - Remove or update any that were written against an assumption
+    your change has resolved or made obsolete
+- **Test docstrings**: If the behavior a test asserts has changed,
+  update the docstring to reflect the new contract
+
+### 12.3 What Constitutes a Stale Comment
+
+A comment is stale and must be corrected if, after the change:
+
+- It names an entity (function, type, variable, module, field, variant)
+  that was renamed or removed
+- It describes a behavior or contract the code no longer exhibits
+  - Example: docstring says a function returns a sorted list, but the
+    sort was removed
+- It asserts an invariant the change violated
+  - Example: `// always called with non-empty slice` when a new path
+    passes an empty slice
+- It references a file, module, or symbol path that no longer exists
+  or has moved
+- It describes a design rationale for a decision that was reversed
+- It counts or enumerates things whose count changed
+  - Example: `// handles 3 cases` when a case was added or removed
+- It contains a `TODO` or `FIXME` that the change fully or partially
+  resolved
+
+### 12.4 Scope of the Sweep
+
+Minimum scope scales with the type of change. When in doubt, sweep more
+rather than less:
+
+- Single function body edited
+  - All docstrings in the same file
+  - All direct callers in other files
+- Function signature changed
+  - All callers across the entire project
+  - All files that import the symbol
+- Type or struct definition changed
+  - All files that construct, match on, or document the type
+- Module or file renamed or deleted
+  - All files whose comments reference it by name or path
+- Behavioral invariant changed
+  - All comments anywhere in the project asserting that invariant
+- Public API removed
+  - All files in the project; sweep all cross-reference comments
+
+### 12.5 Execution Protocol
+
+1. **Enumerate changed entities**: List every entity that was renamed,
+   removed, semantically changed, or moved
+   - Include functions, types, fields, modules, and invariants
+   - This list is the input to the sweep
+2. **Grep for references**: For each entity, run a text search across
+   all source and test files
+   - Do not rely on memory or assumption about where references exist
+3. **Evaluate each hit**: Read each matching comment in full and in
+   context
+   - Do not assume proximity to unchanged code implies correctness
+4. **Correct or remove**: Update stale comments to match current reality
+   - If a comment describes something that no longer exists, remove it
+   - If it partially applies, rewrite it without preserving false claims
+5. **Do not silently skip**: If a stale comment is left uncorrected,
+   surface it explicitly to the user with a reason
+   - Silent omission of known stale comments is a standards violation
+
+### 12.6 Prohibition on Scope Creep
+
+The sweep is a correctness pass, not a quality or style pass. Do not
+rewrite or improve comments that are still accurate. Confine changes
+to genuinely stale content only
