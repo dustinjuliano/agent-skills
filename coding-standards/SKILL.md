@@ -319,3 +319,35 @@ to genuinely stale content only
 - **No Cascading Unwraps**: Do not chain multiple `.unwrap()` calls on
   a single expression or across sequential lines. Each fallible step
   must be handled before proceeding to the next.
+
+### 13.2 Prefer `.as_ref()` Over Heavy Indirection
+
+When borrowing the inner value of a smart pointer or wrapper type,
+prefer `.as_ref()` over stacking multiple dereference (`*`) or
+borrow (`&*`, `&**`) operators, **where doing so improves clarity**.
+This is a readability guideline, not a mechanical rule; apply judgment
+and do not force `.as_ref()` in places where the direct operator form
+is already idiomatic and clear.
+
+- **When to prefer `.as_ref()`**: Use it when converting an owned or
+  smart-pointer type to a shared reference for a function call or
+  assignment, especially across wrapper layers like `Box<T>`,
+  `Arc<T>`, `Rc<T>`, `Option<T>`, or `Cow<'_, T>`:
+  - *Prefer*: `some_box.as_ref()` over `&*some_box`
+  - *Prefer*: `some_arc.as_ref()` over `&**some_arc` or `&*some_arc`
+  - *Prefer*: `opt.as_ref()` over `opt.as_ref().map(|v| &*v)` chains
+    that collapse back to the same thing
+- **When `.as_ref()` is NOT appropriate**: Do not introduce it where
+  the compiler already coerces via deref, where the context makes the
+  direct dereference equally readable, or where doing so requires
+  annotating an otherwise-inferred type. Examples where direct form
+  is fine:
+  - Simple `&s` on a `String` passed to a `fn f(s: &str)` (deref
+    coercion already applies)
+  - `*ptr` inside arithmetic or unsafe pointer arithmetic
+  - Pattern bindings (`if let Some(ref v) = …`) where `as_ref()` would
+    not reduce noise
+- **No Mechanical Churn**: Do not rewrite existing code solely to
+  replace `&*foo` with `foo.as_ref()` during unrelated edits. Apply
+  this preference only when authoring new code or when you are already
+  making a meaningful change to the surrounding expression
