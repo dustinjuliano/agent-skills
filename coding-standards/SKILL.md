@@ -129,7 +129,7 @@ When asked to author git commit messages, strictly follow Linux-style convention
 - **Code and Non-English Enclosure**: In all comments, markdown files, and git commit messages, always enclose any term that is not natural English (such as variable/function/class/type names, parameter names, file paths, directories, URLs, symbols, or data values) in backticks
 - **Docstring Types and Parameters**: Inside all function, method, and trait docstrings, always wrap type annotations, parameter names, and return values/types in backticks
 - **No Ending Punctuation**: The last sentence of a paragraph in all comments in source files (including inline comments, block comments, and docstrings) must never end with punctuation (such as a period)
-- **Preserve Existing Comments**: Never revise or remove existing comments when updating or refactoring code, unless the comments have become stale or out of sync (as defined in the Post-Change Comment Integrity Review section), or unless explicitly directed by the user to do so
+- **Preserve Existing Comments**: Never revise or remove existing comments when updating or refactoring code, unless the comments have become stale or out of sync (as defined in the Post-Code Generation Checks section §12.2), or unless explicitly directed by the user to do so
 
 ## 10. Planning and Design Modes
 
@@ -151,14 +151,50 @@ When asked to author git commit messages, strictly follow Linux-style convention
   renames, or `let` rebindings purely to hide a renamed or restructured API
   from the test assertions. Tests must use the actual exported names
 
-## 12. Post-Change Comment Integrity Review
+## 12. Post-Code Generation Checks
+
+After completing any code generation, refactoring, or file creation
+task, perform all of the following mandatory checks before considering
+the work done. None of these checks may be skipped.
+
+### 12.1 Duplicate Code / DRY Audit
+
+Before finalizing any generated or refactored output, scan the affected
+files and any closely related files for literally duplicated code
+blocks: identical or near-identical logic that appears in two or more
+places. Duplication is not acceptable and must be refactored.
+
+**What to look for:**
+
+- Identical or near-identical function bodies, match arms, or
+  expression sequences copied across two or more locations
+- Logic that differs only in a single variable name or literal value
+  and could be parameterized into a shared helper
+- Repeated patterns of error handling, validation, or transformation
+  that would be cleaner as a single extracted utility
+- Struct construction or initialization blocks that differ only in
+  one or two fields and could be unified with a builder or factory
+
+**Required action:**
+
+When duplication is found, do not leave it. Extract a shared helper,
+free function, method, macro, or generic abstraction and replace all
+duplicates with a single call site. Apply the DRY (Don't Repeat
+Yourself) principle: every piece of knowledge or logic must have a
+single, authoritative representation in the codebase.
+
+**This check is non-negotiable.** Submitting code that contains
+literal duplication is a standards violation, even if the code is
+otherwise correct.
+
+### 12.2 Post-Change Comment Integrity Review
 
 After any code change, perform a deliberate sweep of all affected and
 related source files to identify and correct comments rendered stale or
 factually incorrect by the change. This review is mandatory and cannot
 be skipped.
 
-### 12.1 Temporal Ordering Constraint
+### 12.3 Temporal Ordering Constraint
 
 This review is **strictly post-hoc**. The ground truth for whether a
 comment is stale is established only once the code is in its final
@@ -171,7 +207,7 @@ state. The correct sequence is:
 Performing this check earlier yields false results because the code it
 checks against is still in flux
 
-### 12.2 Spatial Awareness Constraint
+### 12.4 Spatial Awareness Constraint
 
 A stale comment is **not necessarily near the code that invalidated
 it**. Do not limit the sweep to lines you touched. Actively search all
@@ -206,7 +242,7 @@ of the following locations:
 - **Test docstrings**: If the behavior a test asserts has changed,
   update the docstring to reflect the new contract
 
-### 12.3 What Constitutes a Stale Comment
+### 12.5 What Constitutes a Stale Comment
 
 A comment is stale and must be corrected if, after the change:
 
@@ -226,7 +262,7 @@ A comment is stale and must be corrected if, after the change:
 - It contains a `TODO` or `FIXME` that the change fully or partially
   resolved
 
-### 12.4 Scope of the Sweep
+### 12.6 Scope of the Sweep
 
 Minimum scope scales with the type of change. When in doubt, sweep more
 rather than less:
@@ -246,7 +282,7 @@ rather than less:
 - Public API removed
   - All files in the project; sweep all cross-reference comments
 
-### 12.5 Execution Protocol
+### 12.7 Execution Protocol
 
 1. **Enumerate changed entities**: List every entity that was renamed,
    removed, semantically changed, or moved
@@ -265,7 +301,7 @@ rather than less:
    surface it explicitly to the user with a reason
    - Silent omission of known stale comments is a standards violation
 
-### 12.6 Prohibition on Scope Creep
+### 12.8 Prohibition on Scope Creep
 
 The sweep is a correctness pass, not a quality or style pass. Do not
 rewrite or improve comments that are still accurate. Confine changes
@@ -290,11 +326,11 @@ to genuinely stale content only
 - **Explicit Alternatives for `Option`**: When a `None` case must be
   handled locally rather than propagated, use one of the following
   instead of `.unwrap()`:
-  - `.unwrap_or(default)` — supply a static fallback value
-  - `.unwrap_or_else(|| expr)` — compute a fallback lazily
-  - `.unwrap_or_default()` — use the type's `Default` impl
-  - `if let Some(v) = opt { … }` — branch explicitly on presence
-  - `ok_or(err)` / `ok_or_else(|| err)` — convert to `Result` and
+  - `.unwrap_or(default)`: supply a static fallback value
+  - `.unwrap_or_else(|| expr)`: compute a fallback lazily
+  - `.unwrap_or_default()`: use the type's `Default` impl
+  - `if let Some(v) = opt { … }`: branch explicitly on presence
+  - `ok_or(err)` / `ok_or_else(|| err)`: convert to `Result` and
     propagate with `?`
 - **`expect` Requires a Diagnostic Message**: If a panic truly cannot
   be avoided (see acceptable sites below), use `.expect("…")` instead
