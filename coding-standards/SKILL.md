@@ -273,3 +273,4 @@ to genuinely stale content only
 ## 13. Rust-Specific Guidelines
 
 - **No `'static` as Placeholder**: When writing or refactoring Rust code, you are strictly prohibited from using the `'static` lifetime as a temporary placeholder, fallback, or lazy workaround to satisfy the compiler when struggling with lifetime annotations. You must reason about and implement the correct borrowing and ownership relationships.
+- **Minimize Derives**: Try to minimize the use of derives unless they are necessary on data types.
