@@ -275,3 +275,47 @@ to genuinely stale content only
 
 - **No `'static` as Placeholder**: When writing or refactoring Rust code, you are strictly prohibited from using the `'static` lifetime as a temporary placeholder, fallback, or lazy workaround to satisfy the compiler when struggling with lifetime annotations. You must reason about and implement the correct borrowing and ownership relationships.
 - **Minimize Derives**: Try to minimize the use of derives unless they are necessary on data types.
+
+### 13.1 `unwrap` and Panic Risk
+
+- **No Casual `unwrap` in Production Code**: Do not call `.unwrap()` or
+  `.expect()` on `Option` or `Result` values in production code paths.
+  These calls panic at runtime on `None` or `Err` and are never
+  acceptable as a shortcut for proper error handling. Every such call
+  must be replaced with explicit handling.
+- **Prefer `?` Propagation**: The default strategy for `Result`-returning
+  functions is to propagate errors to the caller using the `?` operator.
+  This keeps the error context intact and lets the caller decide how to
+  handle or surface the failure.
+- **Explicit Alternatives for `Option`**: When a `None` case must be
+  handled locally rather than propagated, use one of the following
+  instead of `.unwrap()`:
+  - `.unwrap_or(default)` — supply a static fallback value
+  - `.unwrap_or_else(|| expr)` — compute a fallback lazily
+  - `.unwrap_or_default()` — use the type's `Default` impl
+  - `if let Some(v) = opt { … }` — branch explicitly on presence
+  - `ok_or(err)` / `ok_or_else(|| err)` — convert to `Result` and
+    propagate with `?`
+- **`expect` Requires a Diagnostic Message**: If a panic truly cannot
+  be avoided (see acceptable sites below), use `.expect("…")` instead
+  of `.unwrap()`. The message must be a complete sentence explaining
+  the invariant that was violated, not just a variable name or
+  placeholder string. This message is the only runtime artifact that
+  survives a crash.
+- **Acceptable Panic Sites**: A panic is only acceptable in the
+  following narrowly-scoped situations; all others must use proper
+  error handling:
+  - **Tests**: `unwrap()`/`expect()` are permitted inside `#[test]`
+    functions and `#[cfg(test)]` modules where a panic is the intended
+    failure signal.
+  - **Truly Unreachable Branches**: Use `unreachable!("…")` with a
+    descriptive message when a branch is structurally impossible given
+    prior invariants. Do not use `.unwrap()` as a proxy for
+    `unreachable!`.
+  - **Program Initialization / `main`**: Panics during process startup
+    (before entering the event loop or serving requests) are acceptable
+    when a misconfigured environment should abort rather than continue.
+    Use `.expect("…")` with a message describing the missing resource.
+- **No Cascading Unwraps**: Do not chain multiple `.unwrap()` calls on
+  a single expression or across sequential lines. Each fallible step
+  must be handled before proceeding to the next.
