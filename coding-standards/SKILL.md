@@ -128,6 +128,7 @@ When asked to author git commit messages, strictly follow Linux-style convention
 - **Code and Non-English Enclosure**: In all comments, markdown files, and git commit messages, always enclose any term that is not natural English (such as variable/function/class/type names, parameter names, file paths, directories, URLs, symbols, or data values) in backticks
 - **Docstring Types and Parameters**: Inside all function, method, and trait docstrings, always wrap type annotations, parameter names, and return values/types in backticks
 - **No Ending Punctuation**: The last sentence of a paragraph in all comments in source files (including inline comments, block comments, and docstrings) must never end with punctuation (such as a period)
+- **Preserve Existing Comments**: Never revise or remove existing comments when updating or refactoring code, unless the comments have become stale or out of sync (as defined in the Post-Change Comment Integrity Review section), or unless explicitly directed by the user to do so
 
 ## 10. Planning and Design Modes
 
