@@ -117,6 +117,7 @@ When asked to author git commit messages, strictly follow Linux-style convention
 - **Separation**: Include a single blank line between the subject and the body
 - **Body Casing**: Wrap all lines in the body at 72 characters max, explaining what changed and why (rather than how)
 - **No Punctuation in Lists**: If the body contains bulleted or numbered lists, ensure that no list item ends with any punctuation (such as a period)
+- **Impersonal Voice**: Do not refer to the author, the entity writing the document, or the self (e.g., avoid using words like `we`, `I`, `us`, `our`, `my`). Describe only the changes made, the current behavior, or the intended outcome using an objective, impersonal tone
 
 ## 9. Source Code Comments & Markdown Formatting
 
