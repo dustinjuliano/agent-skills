@@ -113,16 +113,17 @@ When implementing testing and verification in a project, organize the workspace 
 
 When asked to author git commit messages, strictly follow Linux-style conventional commit messages using the 50/72 rule:
 - **Subject Line**: Limit to 50 characters, written in the imperative mood, starting with a conventional prefix (e.g., `feat:`, `fix:`, `docs:`), and never ending in a period or other punctuation
-- **Slug Casing**: The slug — the short description that follows the type tag colon (e.g., the `add login endpoint` part of `feat: add login endpoint`) — must **always be entirely lowercase**. Never capitalize the first word or any word in the slug. This applies without exception, even at the start of the subject line
+- **Slug Casing**: The slug (the short description that follows the type tag colon, e.g., the `add login endpoint` part of `feat: add login endpoint`) must **always be entirely lowercase**. Never capitalize the first word or any word in the slug. This applies without exception, even at the start of the subject line
+  - **Amendment: Scope of This Rule**: The all-lowercase rule applies **exclusively and only to the subject-line slug**. It does **not** apply to the commit body. Do not carry this rule into the body. Applying lowercase-only casing to the body is a misapplication of this standard
 - **Separation**: Include a single blank line between the subject and the body
-- **Body Casing**: Wrap all lines in the body at 72 characters max, explaining what changed and why (rather than how)
-- **No Punctuation in Lists**: If the body contains bulleted or numbered lists, ensure that no list item ends with any punctuation (such as a period)
+- **Body**: Wrap all lines in the body at 72 characters max, explaining what changed and why (rather than how). The body is **normal English prose** and must follow standard sentence-case rules: capitalize the first word of each sentence, proper nouns, and acronyms as you normally would. The slug lowercase rule has no bearing on body casing whatsoever
+- **List Punctuation**: Use normal punctuation conventions for list items in the commit body; do not add or omit punctuation based on any special list rule
 - **Impersonal Voice**: Do not refer to the author, the entity writing the document, or the self (e.g., avoid using words like `we`, `I`, `us`, `our`, `my`). Describe only the changes made, the current behavior, or the intended outcome using an objective, impersonal tone
 
 ## 9. Source Code Comments & Markdown Formatting
 
 - **Line Length**: Ensure all comments (inline, block, or header) are wrapped at a maximum of 72 characters where applicable (Note: this line wrapping limit does not apply to markdown files or regular text files, except for comments and code blocks within them)
-- **No Punctuation in Lists**: If a comment block or markdown file contains any listed items, never put ending punctuation (such as a period) at the end of list item lines
+- **List Punctuation**: Use normal punctuation conventions for list items in comments and markdown files; do not add or omit punctuation based on any special list rule
 - **List Bullet Style**: Always use `-` for bulleted list items (both in source code comments and markdown files). Never use `*`
 - **Markdown Headings**: Always include exactly one blank line immediately after any markdown heading declaration (e.g., `# Heading`), regardless of the level of that heading
 - **Code and Non-English Enclosure**: In all comments, markdown files, and git commit messages, always enclose any term that is not natural English (such as variable/function/class/type names, parameter names, file paths, directories, URLs, symbols, or data values) in backticks
