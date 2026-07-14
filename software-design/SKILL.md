@@ -91,3 +91,6 @@ When writing code blocks within design or planning files, do not add comments to
 
 Do not create walkthrough artifacts (`walkthrough.md`) after completing tasks unless the user explicitly requests one.
 
+## 11. Rust Lifetime Conventions
+
+- **No `'static` as Placeholder**: When proposing or detailing Rust designs, never use the `'static` lifetime as a lazy placeholder or workaround to resolve borrowing and lifetime complexity. Always design and specify the correct, explicit lifetimes that reflect the true ownership semantics of the system.
