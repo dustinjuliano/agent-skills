@@ -103,6 +103,14 @@ Raises:
 - **Pattern Matching Wildcards**: Do not use wildcard catch-all patterns (such as `_ => ...` or a bare `_` arm) when matching enums. You must explicitly match and expand all enum variants in match blocks to rely on the compiler for exhaustiveness checks. This is strictly forbidden.
   - **Handling Deferred/Unimplemented Features**: You are not allowed to use a wildcard to ignore unimplemented features. If an enum variant represents a feature that is intentionally deferred, you must still explicitly match the variant and provide a `todo!()`, `unimplemented!()`, or a runtime warning log indicating why it is deferred (e.g., referencing a tracking issue).
   - *Note*: This rule applies exclusively to match arms on enums; it does not forbid using the wildcard during struct/tuple destructuring.
+- **Data Preservation in Transformations**: When transforming, wrapping,
+  re-emitting, or buffering data structures, all operations must maintain
+  full fidelity with the source input. Do not synthesize default, empty,
+  or dummy values (e.g., zero, empty strings, nulls, or default objects)
+  to fill in fields when re-constructing downstream output structures. If
+  a field is present in the source data, it must be explicitly preserved
+  and propagated intact through the transformation pipeline unless data
+  truncation or sanitization is an explicit requirement of the contract
 
 ## 7. Standard Directory Layout
 
