@@ -98,7 +98,7 @@ Raises:
 
 ## 6. Control Flow & Return Checking
 
-- **Check Return Values**: All functions that return a value *must* have their return values checked or handled by the caller. Do not discard return values
+- **Check Return Values**: All functions returning a non-unit value *must* have their return values checked or handled by the caller, regardless of whether the compiler emits a warning (e.g., custom status/reply enums). Do not execute status-returning functions as unassigned statements. When adding error or reply checks to a function call, audit all other call sites of that function in the file
 - **Structured Exit**: All functions must return control back to the caller (bubbling up to the program's main entry point) instead of terminating execution abruptly (e.g., do not call `sys.exit()` in nested utilities) unless using standard exception handling
 - **Pattern Matching Wildcards**: Do not use wildcard catch-all patterns (such as `_ => ...` or a bare `_` arm) when matching enums. You must explicitly match and expand all enum variants in match blocks to rely on the compiler for exhaustiveness checks. This is strictly forbidden.
   - **Handling Deferred/Unimplemented Features**: You are not allowed to use a wildcard to ignore unimplemented features. If an enum variant represents a feature that is intentionally deferred, you must still explicitly match the variant and provide a `todo!()`, `unimplemented!()`, or a runtime warning log indicating why it is deferred (e.g., referencing a tracking issue).
@@ -321,6 +321,7 @@ to genuinely stale content only
 
 - **No `'static` as Placeholder**: When writing or refactoring Rust code, you are strictly prohibited from using the `'static` lifetime as a temporary placeholder, fallback, or lazy workaround to satisfy the compiler when struggling with lifetime annotations. You must reason about and implement the correct borrowing and ownership relationships.
 - **Minimize Derives**: Try to minimize the use of derives unless they are necessary on data types.
+- **`#[must_use]` Annotations**: Annotate types, enums, and functions whose discarded values represent unhandled state or logic failures with `#[must_use]` so the compiler enforces caller evaluation at compile time.
 
 ### 13.1 `unwrap` and Panic Risk
 
